@@ -2916,13 +2916,6 @@ static int _do_sid_ucmd_dev_set_ready(sid_res_t           *res,
 			r = -EBADRQC;
 			goto out;
 
-		case SID_DEV_RDY_REMOVED:
-			if (old_ready == SID_DEV_RDY_UNDEFINED) {
-				r = -EBADRQC;
-				goto out;
-			}
-			break;
-
 		case SID_DEV_RDY_UNPROCESSED:
 			if (old_ready != SID_DEV_RDY_UNDEFINED) {
 				r = -EBADRQC;
@@ -2937,6 +2930,7 @@ static int _do_sid_ucmd_dev_set_ready(sid_res_t           *res,
 			}
 			break;
 
+		case SID_DEV_RDY_REMOVED:
 		case SID_DEV_RDY_UNINITIALIZED:
 		case SID_DEV_RDY_PRIVATE:
 		case SID_DEV_RDY_FLAT:
