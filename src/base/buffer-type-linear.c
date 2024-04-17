@@ -77,8 +77,9 @@ static int _buffer_linear_realloc(struct sid_buf *buf, size_t needed, int force)
 				return -errno;
 			/* fall through */
 		case SID_BUF_BACKEND_FILE:
-			if (buf->fd == -1 &&
-			    (buf->fd = open(buf->stat.spec.ext.file.path, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
+			if (buf->fd == -1 && (buf->fd = open(buf->stat.spec.ext.file.path,
+			                                     O_RDWR | O_CREAT | O_TRUNC | O_CLOEXEC,
+			                                     S_IRUSR | S_IWUSR)) < 0)
 				return -errno;
 
 			if (ftruncate(buf->fd, needed) < 0)
