@@ -17,7 +17,7 @@
 static const unsigned char base64_table[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 /**
- * sid_binary_len_encode - Size necessary for sid_binary_encode
+ * sid_conv_bin_len_encode - Size necessary for sid_binary_encode
  * @in_len: Length of the data to be encoded
  * Returns: output length needed to store the base64 encoded data, including
  * padding and NULL bytes, or 0 if the buffer overflowed.
@@ -36,12 +36,12 @@ size_t sid_conv_bin_len_encode(size_t in_len)
 }
 
 /**
- * sid_binary_encode - Base64 encode
+ * sid_conv_bin_encode - Base64 encode
  * @src: Data to be encoded
  * @in_len: Length of the data to be encoded
  * @dest: pre-allocated buffer to store the encoded data
  * @out_len: Length of the encoded data
- * Returns: buffer of out_len bytes of encoded data
+ * Returns: 0 on success or -EINVAL on failure
  *
  * Returned buffer is nul terminated to make it easier to use as a C string.
  */
@@ -83,7 +83,7 @@ int sid_conv_bin_encode(const unsigned char *src, size_t in_len, unsigned char *
 }
 
 /**
- * sid_binary_decode - Base64 decode
+ * sid_conv_bin_decode - Base64 decode
  * @src: Data to be decoded
  * @len: Length of the data to be decoded
  * @out_len: Pointer to output length variable
